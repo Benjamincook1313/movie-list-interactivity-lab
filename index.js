@@ -17,7 +17,7 @@ const addMovie = (e) => {
     movieTitle.textContent = inputField
     movie.appendChild(movieTitle)
     document.querySelector('ul').appendChild(movie)
-    message.textContent = 'New Movie Added'
+    message.textContent = `${inputField} Added`
     
     // resets input field to empty
     inputField = ''
@@ -29,23 +29,33 @@ const addMovie = (e) => {
     deleteBtn.addEventListener('click', deleteMovie)
     movie.appendChild(deleteBtn)
     
-    // alerts user of action
+   revealMessage()
     
 };
 
 const deleteMovie = (e) => {
+    message.textContent = `${e.target.previousElementSibling.textContent} Deleted`
     e.target.parentNode.remove()
-    message.textContent = 'Movie Deleted'
+    revealMessage()
 };
 
 const crossOffMovie = (e) => {
     e.target.classList.toggle('checked')
+    // console.log(e.target.textContent)
     if(e.target.classList.contains('checked')){
-        message.textContent = 'Movie Watched!'
+        message.textContent = `${e.target.textContent} Watched!`
     }else{
-        message.textContent = 'Watching the movie again? It must be a good one!'
+        message.textContent = `Watching ${e.target.textContent} again? It must be a good one!`
     }
+    revealMessage()
 };
+
+const revealMessage = () => {
+    document.getElementById('message').className = ''
+    setTimeout(() => {
+        document.getElementById('message').className = 'hide'
+    }, 2000)
+}
 
 form.addEventListener('submit', addMovie);
 
